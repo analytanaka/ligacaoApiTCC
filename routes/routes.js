@@ -8,6 +8,7 @@ const ClassificacaoController = require('../controllers/classificacao');
 const TiposDespesaController = require('../controllers/tipos_despesa');
 
 router.get('/usuario', UsuarioController.listarUsuario);
+router.get('/perfil/:usu_id', UsuarioController.listarPerfil);
 router.post('/usuario', UsuarioController.cadastrarUsuario); 
 router.patch('/usuario', UsuarioController.editarUsuario); 
 router.delete('/usuario', UsuarioController.apagarUsuario); 

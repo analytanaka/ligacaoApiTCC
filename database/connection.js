@@ -2,7 +2,7 @@ const mysql = require ('mysql2/promise');
 
 const bd_usuario = 'us_etim_122_g4';
 const bd_senha = 'of2723';
-const bd_servidor = ' 10.67.22.216';
+const bd_servidor = '10.67.22.216';
 const bd_porta ='3306';
 const bd_banco = 'bd_tcc_etim_122_g4';
 let connection;
