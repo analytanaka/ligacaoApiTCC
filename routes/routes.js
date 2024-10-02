@@ -11,7 +11,7 @@ router.get('/usuario', UsuarioController.listarUsuario);
 router.get('/perfil/:usu_id', UsuarioController.listarPerfil);
 router.post('/usuario', UsuarioController.cadastrarUsuario); 
 router.patch('/usuario', UsuarioController.editarUsuario); 
-router.delete('/usuario', UsuarioController.apagarUsuario); 
+router.delete('/usuario/:usu_id', UsuarioController.apagarUsuario); 
 
 router.get('/receitas', ReceitasController.listarReceitas);
 router.post('/receitas', ReceitasController.cadastrarReceitas); 
@@ -19,6 +19,7 @@ router.patch('/receitas', ReceitasController.editarReceitas);
 router.delete('/receitas', ReceitasController.apagarReceitas); 
 
 router.get('/despesas', DespesasController.listarDespesas);
+router.get('/desp/:des_id', DespesasController.listarDesp);
 router.post('/despesas', DespesasController.cadastrarDespesas); 
 router.patch('/despesas', DespesasController.editarDespesas); 
 router.delete('/despesas', DespesasController.apagarDespesas); 
