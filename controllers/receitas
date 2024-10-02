@@ -2,11 +2,14 @@ const db = require('../database/connection');
 
 module.exports = {
     async listarReceitas(request, response) {
-        try {            
+        try {     
+            const sql = `SELECT rec_id, rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id FROM receitas;`
+            const receitas = await db.query(sql);
+
             return response.status(200).json({
                 sucesso: true, 
                 mensagem: 'Lista de receitas.', 
-                dados: null
+                dados: receitas[0]
             });
         } catch (error) {
             return response.status(500).json({
@@ -17,11 +20,18 @@ module.exports = {
         }
     }, 
     async cadastrarReceitas(request, response) {
-        try {            
+        try {   
+            const {rec_descricao, rec_data_receber, rec_valor, rec_classi, udu_id} = request.body;
+            const sql = `insert into usuario (rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id)
+                         values (?, ?, ?, ?,?,?)`
+            const values =  [rec_descricao, rec_data_receber, rec_valor, rec_classi, udu_id];
+            const execSql = await db.query(sql , values);
+            const rec_id = execSql[0].insertId; 
+
             return response.status(200).json({
                 sucesso: true, 
                 mensagem: 'Cadastro de receita.', 
-                dados: null
+                dados: rec_id
             });
         } catch (error) {
             return response.status(500).json({
