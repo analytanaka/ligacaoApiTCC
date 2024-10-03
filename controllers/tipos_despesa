@@ -52,12 +52,13 @@ module.exports = {
     }, 
     async cadastrarTiposDespesa(request, response) {
         try { 
-            const {tp_descricao} = request.body;
+            const {tp_descricao, usu_id} = request.body;
             const sql = `insert into tipos_despesa (
-                tp_descricao
+                tp_descricao,
+                usu_id
             )
-                         values (?)`
-            const values =  [tp_descricao];
+                         values (?, ?)`
+            const values =  [tp_descricao, usu_id];
             const execSql = await db.query(sql , values);
             const tp_id = execSql[0].insertId;
           
