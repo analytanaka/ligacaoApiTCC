@@ -10,14 +10,11 @@ const TiposDespesaController = require('../controllers/tipos_despesa');
 router.get('/usuario', UsuarioController.listarUsuario);
 router.get('/perfil/:usu_id', UsuarioController.listarPerfil);
 router.post('/usuario', UsuarioController.cadastrarUsuario); 
-<<<<<<< HEAD
 router.patch('/usuario', UsuarioController.editarUsuario);
 router.patch('/usuario/:usu_id', UsuarioController.editarUsuario);
 router.delete('/usuario', UsuarioController.apagarUsuario); 
-=======
-router.patch('/usuario', UsuarioController.editarUsuario); 
 router.delete('/usuario/:usu_id', UsuarioController.apagarUsuario); 
->>>>>>> 16653f9f1a7e7215aeb582489b3b8b60a5ba0cc9
+
 
 router.get('/receitas', ReceitasController.listarReceitas);
 router.post('/receitas', ReceitasController.cadastrarReceitas); 
