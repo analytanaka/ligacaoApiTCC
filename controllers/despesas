@@ -57,25 +57,11 @@ module.exports = {
     async cadastrarDespesas(request, response) {
         try {
             const {des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros} = request.body;
-            const sql = `insert into despesas (
-                des_descricao, 
-                des_data_vencimento, 
-                des_data_pagamento, 
-                des_valor, 
-                des_desconto, 
-                des_multa, 
-                des_juros 
-            )
+
+            const sql = `insert into despesas (des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros,)
             values (?, ?, ?, ?, ?, ?, ?)`
-            const values =  [
-                des_descricao, 
-                des_data_vencimento, 
-                des_data_pagamento, 
-                des_valor, 
-                des_desconto, 
-                des_multa, 
-                des_juros 
-            ];
+            const values =  [des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros ];
+            
             const execSql = await db.query(sql , values);
             const des_id = execSql[0].insertId;
 
