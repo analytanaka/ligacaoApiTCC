@@ -2,11 +2,45 @@ const db = require('../database/connection');
 
 module.exports = {
     async listarTiposDespesa(request, response) {
-        try {            
+        try {    
+            const sql =`SELECT tp_id, tp_descricao, usu_id
+                          FROM tipos_despesa;`;       
+            const tipos = await db.query(sql);
+          
+
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Lista de Tipo de Despesa.', 
-                dados: null
+                mensagem: 'Lista de Tipos de despesa.', 
+                dados: tipos [0]
+              
+            });
+        } catch (error) {
+            return response.status(500).json({
+                sucesso: false,
+                mensagem: 'Erro na requisição.',
+                dados: error.message
+            });
+        }
+    }, 
+
+    async listarTpDespesa(request, response) {
+        try {    
+            const { tp_id } = request.params;
+            const sql =`SELECT 
+            tp_id
+            usu_id
+            tp_descricao
+                            FROM tipos_desp
+                            WHERE usu_id = ?;`;     
+            const values = [tp_id];
+            const tipos = await db.query(sql , values);
+          
+
+            return response.status(200).json({
+                sucesso: true, 
+                mensagem: 'Lista de usuário.', 
+                dados: tipos [0]
+              
             });
         } catch (error) {
             return response.status(500).json({
@@ -17,12 +51,22 @@ module.exports = {
         }
     }, 
     async cadastrarTiposDespesa(request, response) {
-        try {            
+        try { 
+            const {tp_descricao, usu_id} = request.body;
+            const sql = `insert into tipos_despesa (
+                tp_descricao,
+                usu_id
+            )
+                         values (?, ?)`
+            const values =  [tp_descricao, usu_id];
+            const execSql = await db.query(sql , values);
+            const tp_id = execSql[0].insertId;
+          
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Cadastro de Tipo de Despesa.', 
-                dados: null
-            });
+                mensagem: 'Cadastro de usuário efetuado com sucesso.', 
+                dados: tp_id
+            });          
         } catch (error) {
             return response.status(500).json({
                 sucesso: false,
