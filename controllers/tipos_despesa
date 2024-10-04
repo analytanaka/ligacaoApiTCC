@@ -76,11 +76,17 @@ module.exports = {
         }
     }, 
     async editarTiposDespesa(request, response) {
-        try {            
+        try {  
+            const { tp_descricao, usu_id} = request.body;
+            const {tp_id}  = request.params;
+            const sql = `UPDATE tipos_despesa SET tp_descricao = ?,   usu_id = ? WHERE tp_id = ? `;     
+            const values = [tp_id, tp_descricao, usu_id]
+            const atualizarDados = await db.query(sql , values)
+
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Editar Tipo de Despesa.', 
-                dados: null
+                mensagem: `Tipos de Despesa ${tp_id} atualizado com sucesso!`, 
+                dados: atualizarDados[0].affectedRows
             });
         } catch (error) {
             return response.status(500).json({
@@ -91,11 +97,16 @@ module.exports = {
         }
     }, 
     async apagarTiposDespesa(request, response) {
-        try {            
+        try {         
+            const { tp_id } = request.params;
+            const sql = `DELETE FROM tipos_depesa WHERE tp_id = ?`
+            const values = [ tp_id ] ;
+            const apagar = await db.query(sql, values);
+
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Apagar Tipo de Despesa.', 
-                dados: null
+                mensagem: `Tipo de despesa ${tp_id} excuído!`, 
+                dados: apagar[0].affectedRows
             });
         } catch (error) {
             return response.status(500).json({

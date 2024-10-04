@@ -35,7 +35,7 @@ router.delete('/classificacao', ClassificacaoController.apagarClassificacao);
 router.get('/tipos_despesa', TiposDespesaController .listarTiposDespesa);
 router.get('/tp_despesa/:tp_id', TiposDespesaController .listarTiposDespesa);
 router.post('/tipos_despesa', TiposDespesaController .cadastrarTiposDespesa); 
-router.patch('/tipos_despesa', TiposDespesaController .editarTiposDespesa); 
-router.delete('/tipos_despesa', TiposDespesaController .apagarTiposDespesa); 
+router.patch('/tipos_despesa/:tp_id', TiposDespesaController .editarTiposDespesa); 
+router.delete('/tipos_despesa/:tp_id', TiposDespesaController .apagarTiposDespesa); 
 
 module.exports = router;
