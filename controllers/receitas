@@ -2,27 +2,12 @@ const db = require('../database/connection');
 
 module.exports = {
     async listarReceitas(request, response) {
-
-        try {  
-            const sql = `SELECT rec_id,
-             rec_descricao,
-             rec_data_receber, 
-             rec_valor,
-             rec_classi, 
-             usu_id 
-            FROM receitas;`;
-
-        try {     
-            const sql = `SELECT rec_id, rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id FROM receitas;`
-
-            const receitas = await db.query(sql);
-
+        try {            
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Lista de receitas.', 
-                dados: receitas[0]
+                mensagem: 'Lista de classificações.', 
+                dados: null
             });
-
         } catch (error) {
             return response.status(500).json({
                 sucesso: false,
@@ -32,28 +17,11 @@ module.exports = {
         }
     }, 
     async cadastrarReceitas(request, response) {
-
-        try {          
-            
-            const {usu_login, usu_senha, usu_nome, usu_email, usu_fone, usu_fotoperfil} = request.body;
-            const sql = `insert into receitas ( rec_id, rec_descricao, rec_data_receber, rec_valor, rec_classi, udu_id ;)
-                         values (?, ?, ?, ?,?,?)`
-            const values =  [ rec_id, rec_descricao, rec_data_receber, rec_valor, rec_classi, udu_id ];
-            const execSql = await db.query(sql , values);
-            const rec_id = execSql[0].insertId;
-
-        try {   
-            const {rec_descricao, rec_data_receber, rec_valor, rec_classi, udu_id} = request.body;
-            const sql = `insert into usuario (rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id)
-                         values (?, ?, ?, ?,?,?)`
-            const values =  [rec_descricao, rec_data_receber, rec_valor, rec_classi, udu_id];
-            const execSql = await db.query(sql , values);
-
-
+        try {            
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Cadastro de receita.', 
-                dados: rec_id
+                mensagem: 'Cadastro de classificação.', 
+                dados: null
             });
         } catch (error) {
             return response.status(500).json({
@@ -62,12 +30,12 @@ module.exports = {
                 dados: error.message
             });
         }
-    }
+    }, 
     async editarReceitas(request, response) {
         try {            
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Editar receita.', 
+                mensagem: 'Editar classificação.', 
                 dados: null
             });
         } catch (error) {
@@ -82,7 +50,7 @@ module.exports = {
         try {            
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Apagar receita.', 
+                mensagem: 'Apagar classificação.', 
                 dados: null
             });
         } catch (error) {
