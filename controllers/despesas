@@ -2,11 +2,49 @@ const db = require('../database/connection');
 
 module.exports = {
     async listarDespesas(request, response) {
-        try {            
+        try {
+            
+            const sql = `SELECT des_id, des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros, usu_id, tp_id 
+            FROM despesas;`
+            const despesa = await db.query(sql)
+
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Lista de despesas.', 
+                mensagem: 'Sucesso na listagem.', 
                 dados: null
+            });
+        } catch (error) {
+            return response.status(500).json({
+                sucesso: false,
+                mensagem: 'Erro na requisição.',
+                dados: error.message
+            });
+        }
+    },
+
+    async listarDesp(request, response) {
+        try {
+            const { des_id } = request.params;
+            const sql = `SELECT 
+                des_id, 
+                des_descricao, 
+                des_data_vencimento, 
+                des_data_pagamento, 
+                des_valor, 
+                des_desconto, 
+                des_multa, 
+                des_juros, 
+                usu_id, 
+                tp_id 
+            FROM despesas;`
+
+            const values = [des_id];
+            const despesa = await db.query(sql, values)
+
+            return response.status(200).json({
+                sucesso: true, 
+                mensagem: 'Sucesso na listagem.', 
+                dados: despesa[0]
             });
         } catch (error) {
             return response.status(500).json({
@@ -17,11 +55,20 @@ module.exports = {
         }
     }, 
     async cadastrarDespesas(request, response) {
-        try {            
+        try {
+            const {des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros} = request.body;
+
+            const sql = `insert into despesas (des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros,)
+            values (?, ?, ?, ?, ?, ?, ?)`
+            const values =  [des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros ];
+            
+            const execSql = await db.query(sql , values);
+            const des_id = execSql[0].insertId;
+
             return response.status(200).json({
                 sucesso: true, 
                 mensagem: 'Cadastro de despesa.', 
-                dados: null
+                dados: des_id
             });
         } catch (error) {
             return response.status(500).json({
