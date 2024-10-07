@@ -1,7 +1,7 @@
 SELECT usu_id, usu_login, usu_senha, usu_nome, usu_email, usu_fone FROM usuario;
 SELECT des_id, des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros, usu_id, tp_id FROM despesas;
 SELECT cla_id, usu_id, cla_descricao FROM classificacao;
-SELECT rec_id, rec_descricao, rec_data_receber, rec_valor, rec_classi, udu_id FROM receitas;
+SELECT rec_id, rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id FROM receitas;
 SELECT tp_id, tp_descricao, usu_id FROM tipos_despesa;
 
 SELECT SUM(rec_valor) AS Receitas

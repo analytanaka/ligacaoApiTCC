@@ -80,7 +80,7 @@ module.exports = {
             const { tp_descricao, usu_id} = request.body;
             const {tp_id}  = request.params;
             const sql = `UPDATE tipos_despesa SET tp_descricao = ?,   usu_id = ? WHERE tp_id = ? `;     
-            const values = [tp_id, tp_descricao, usu_id]
+            const values = [tp_descricao, usu_id, tp_id ]
             const atualizarDados = await db.query(sql , values)
 
             return response.status(200).json({
@@ -115,5 +115,5 @@ module.exports = {
                 dados: error.message
             });
         }
-    }, 
+    }
 };  

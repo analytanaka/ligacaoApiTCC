@@ -5,6 +5,7 @@ module.exports = {
         try {     
             const sql = `SELECT rec_id, rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id FROM receitas;`
             const receitas = await db.query(sql);
+            
 
             return response.status(200).json({
                 sucesso: true, 
@@ -19,12 +20,13 @@ module.exports = {
             });
         }
     }, 
+
     async cadastrarReceitas(request, response) {
         try {   
-            const {rec_descricao, rec_data_receber, rec_valor, rec_classi, udu_id} = request.body;
+            const {rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id} = request.body;
             const sql = `insert into usuario (rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id)
-                         values (?, ?, ?, ?,?,?)`
-            const values =  [rec_descricao, rec_data_receber, rec_valor, rec_classi, udu_id];
+                         values (?, ?, ?, ?, ?)`
+            const values =  [rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id];
             const execSql = await db.query(sql , values);
             const rec_id = execSql[0].insertId; 
 
@@ -70,5 +72,5 @@ module.exports = {
                 dados: error.message
             });
         }
-    }, 
+    } 
 };  

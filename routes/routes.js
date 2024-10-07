@@ -15,9 +15,10 @@ router.patch('/usuario/:usu_id', UsuarioController.editarUsuario);
 router.delete('/usuario', UsuarioController.apagarUsuario); 
 router.delete('/usuario/:usu_id', UsuarioController.apagarUsuario); 
 
-
 router.get('/receitas', ReceitasController.listarReceitas);
+router.get('/receitas/:rec_id', ReceitasController.listarReceitas);
 router.post('/receitas', ReceitasController.cadastrarReceitas); 
+router.post('/receitas/:rec_id', ReceitasController.cadastrarReceitas); 
 router.patch('/receitas', ReceitasController.editarReceitas); 
 router.delete('/receitas', ReceitasController.apagarReceitas); 
 

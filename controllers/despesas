@@ -2,16 +2,15 @@ const db = require('../database/connection');
 
 module.exports = {
     async listarDespesas(request, response) {
-        try {
+        try {     
+            const sql = `SELECT des_id, des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros, usu_id, tp_id FROM despesas;`
+            const despesas = await db.query(sql);
             
-            const sql = `SELECT des_id, des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros, usu_id, tp_id 
-            FROM despesas;`
-            const despesa = await db.query(sql)
 
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Sucesso na listagem.', 
-                dados: null
+                mensagem: 'Lista de receitas.', 
+                dados: despesas[0]
             });
         } catch (error) {
             return response.status(500).json({
@@ -20,7 +19,7 @@ module.exports = {
                 dados: error.message
             });
         }
-    },
+    }, 
 
     async listarDesp(request, response) {
         try {
@@ -107,5 +106,5 @@ module.exports = {
                 dados: error.message
             });
         }
-    }, 
+    }
 };  
