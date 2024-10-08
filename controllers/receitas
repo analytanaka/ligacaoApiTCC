@@ -26,7 +26,7 @@ module.exports = {
 
         try {   
             const {rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id} = request.body;
-            const sql = `insert into usuario (rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id)
+            const sql = `insert into receitas (rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id)
                          values (?, ?, ?, ?, ?)`
             const values =  [rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id];
             const execSql = await db.query(sql , values);
@@ -50,7 +50,7 @@ module.exports = {
             const { rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id} = request.body;
             const {rec_id}  = request.params;
             const sql = `UPDATE tipos_despesa SET rec_descricao = ?, rec_data_receber = ?, rec_valor = ?, rec_classi = ?, usu_id = ? WHERE rec_id = ? `;     
-            const values = [rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id ]
+            const values = [rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id, rec_id]
             const atualizarDados = await db.query(sql , values)
 
             return response.status(200).json({
