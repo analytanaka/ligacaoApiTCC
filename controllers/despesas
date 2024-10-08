@@ -66,7 +66,7 @@ module.exports = {
 
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Cadastro de despesa.', 
+                mensagem: 'Despesa cadastrada!', 
                 dados: des_id
             });
         } catch (error) {
@@ -78,11 +78,23 @@ module.exports = {
         }
     }, 
     async editarDespesas(request, response) {
-        try {            
+        try {   
+            const {des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros} = request.body;
+            const {des_id}  = request.params;
+            const sql = `UPDATE despesas SET des_descricao = ?,
+             des_data_vencimento = ?, 
+             des_data_pagamento = ?, 
+             des_valor = ?, 
+             des_desconto = ?,
+              des_multa = ?, 
+              des_juros = ? WHERE des_id = ?`
+                
+            const values = [des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros]
+            const atualizaDados = await db.query(sql , values)         
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Editar despesa.', 
-                dados: null
+                mensagem:`Despesa ${des_id} atualizada com sucesso!`, 
+                dados: atualizaDados[0].affectedRows
             });
         } catch (error) {
             return response.status(500).json({
@@ -93,11 +105,16 @@ module.exports = {
         }
     }, 
     async apagarDespesas(request, response) {
-        try {            
+        try { 
+            const { des_id } = request.params;
+            const sql = `DELETE FROM despesa WHERE des_id = ?`
+            const values = [ des_id ] ;
+            const deletar = await db.query(sql, values);
+
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Apagar despesa.', 
-                dados: null
+                mensagem: `Despesa ${des_id} excluída!`, 
+                dados: deletar[0].affectedRows
             });
         } catch (error) {
             return response.status(500).json({

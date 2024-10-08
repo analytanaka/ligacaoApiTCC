@@ -20,13 +20,18 @@ router.get('/receitas/:rec_id', ReceitasController.listarReceitas);
 router.post('/receitas', ReceitasController.cadastrarReceitas); 
 router.post('/receitas/:rec_id', ReceitasController.cadastrarReceitas); 
 router.patch('/receitas', ReceitasController.editarReceitas); 
+router.patch('/receitas/:rec_id', ReceitasController.editarReceitas); 
 router.delete('/receitas', ReceitasController.apagarReceitas); 
+router.delete('/receitas/:rec_id', ReceitasController.apagarReceitas); 
 
 router.get('/despesas', DespesasController.listarDespesas);
 router.get('/desp/:des_id', DespesasController.listarDesp);
 router.post('/despesas', DespesasController.cadastrarDespesas); 
+router.post('/despesas/:des_id', DespesasController.cadastrarDespesas);
 router.patch('/despesas', DespesasController.editarDespesas); 
+router.patch('/despesas/:des_id', DespesasController.editarDespesas); 
 router.delete('/despesas', DespesasController.apagarDespesas); 
+router.delete('/despesas/:des_id', DespesasController.apagarDespesas); 
 
 router.get('/classificacao', ClassificacaoController.listarClassificacao);
 router.post('/classificacao', ClassificacaoController.cadastrarClassificacao); 

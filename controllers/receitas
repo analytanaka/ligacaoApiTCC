@@ -2,19 +2,16 @@ const db = require('../database/connection');
 
 module.exports = {
     async listarReceitas(request, response) {
-<<<<<<< HEAD
+
         try {     
             const sql = `SELECT rec_id, rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id FROM receitas;`
             const receitas = await db.query(sql);
             
 
-=======
-        try {            
->>>>>>> 72b18c1ae8e0fd873972085b37f7f3e1f8c9d798
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Lista de classificações.', 
-                dados: null
+                mensagem: 'Lista de Receitas.', 
+                dados: receitas[0]
             });
         } catch (error) {
             return response.status(500).json({
@@ -26,22 +23,19 @@ module.exports = {
     }, 
 
     async cadastrarReceitas(request, response) {
-<<<<<<< HEAD
+
         try {   
             const {rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id} = request.body;
             const sql = `insert into usuario (rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id)
                          values (?, ?, ?, ?, ?)`
             const values =  [rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id];
             const execSql = await db.query(sql , values);
-            const rec_id = execSql[0].insertId; 
+            const rec_id = execSql[0].insertId;          
 
-=======
-        try {            
->>>>>>> 72b18c1ae8e0fd873972085b37f7f3e1f8c9d798
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Cadastro de classificação.', 
-                dados: null
+                mensagem: 'Cadastro de Receitas.', 
+                dados: rec_id
             });
         } catch (error) {
             return response.status(500).json({
@@ -52,11 +46,17 @@ module.exports = {
         }
     }, 
     async editarReceitas(request, response) {
-        try {            
+        try {     
+            const { rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id} = request.body;
+            const {rec_id}  = request.params;
+            const sql = `UPDATE tipos_despesa SET rec_descricao = ?, rec_data_receber = ?, rec_valor = ?, rec_classi = ?, usu_id = ? WHERE rec_id = ? `;     
+            const values = [rec_descricao, rec_data_receber, rec_valor, rec_classi, usu_id ]
+            const atualizarDados = await db.query(sql , values)
+
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Editar classificação.', 
-                dados: null
+                mensagem: `Receita ${rec_id} atualizada com sucesso!`, 
+                dados: atualizarDados[0].affectedRows
             });
         } catch (error) {
             return response.status(500).json({
@@ -67,11 +67,16 @@ module.exports = {
         }
     }, 
     async apagarReceitas(request, response) {
-        try {            
+        try {       
+            const {rec_id} = request.params;
+            const sql = `DELETE FROM receitas WHERE rec_id = ?`
+            const values = [ rec_id ] ;
+            const deletar = await db.query(sql, values);
+
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Apagar classificação.', 
-                dados: null
+                mensagem: `Receita ${rec_id} excuída!`, 
+                dados: deletar[0].affectedRows
             });
         } catch (error) {
             return response.status(500).json({
