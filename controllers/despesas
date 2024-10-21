@@ -82,12 +82,12 @@ module.exports = {
             const {des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros} = request.body;
             const {des_id}  = request.params;
             const sql = `UPDATE despesas SET des_descricao = ?,
-             des_data_vencimento = ?, 
-             des_data_pagamento = ?, 
-             des_valor = ?, 
-             des_desconto = ?,
-              des_multa = ?, 
-              des_juros = ? WHERE des_id = ?`
+                des_data_vencimento = ?, 
+                des_data_pagamento = ?, 
+                des_valor = ?, 
+                des_desconto = ?,
+                des_multa = ?, 
+                des_juros = ? WHERE des_id = ?`
                 
             const values = [des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros]
             const atualizaDados = await db.query(sql , values)         
