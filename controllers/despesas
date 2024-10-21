@@ -35,7 +35,7 @@ module.exports = {
                 des_juros, 
                 usu_id, 
                 tp_id 
-            FROM despesas;`
+            FROM despesas WHERE des_id = ?;`;
 
             const values = [des_id];
             const despesa = await db.query(sql, values)
@@ -57,8 +57,9 @@ module.exports = {
         try {
             const {des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros, usu_id, tp_id} = request.body;
 
-            const sql = `insert into despesas (des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros, usu_id tp_id)
-            values (?, ?, ?, ?, ?, ?, ?)`
+            const sql = `INSERT INTO despesas (des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros, usu_id, tp_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+
             const values =  [des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros, usu_id, tp_id];
             
             const execSql = await db.query(sql , values);
@@ -81,6 +82,7 @@ module.exports = {
         try {   
             const {des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros} = request.body;
             const {des_id}  = request.params;
+<<<<<<< HEAD
             const sql = `UPDATE despesas SET des_descricao = ?,
                 des_data_vencimento = ?, 
                 des_data_pagamento = ?, 
@@ -88,8 +90,14 @@ module.exports = {
                 des_desconto = ?,
                 des_multa = ?, 
                 des_juros = ? WHERE des_id = ?`
+=======
+            const sql = `UPDATE despesas 
+                     SET des_descricao = ?, des_data_vencimento = ?, des_data_pagamento = ?, des_valor = ?, des_desconto = ?, des_multa = ?, des_juros = ? 
+                     WHERE des_id = ?`;
+>>>>>>> 891f7f8c664be6a6be2c6502f23bd6cb4d2c42c2
                 
-            const values = [des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros]
+                     const values = [des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros, des_id];
+
             const atualizaDados = await db.query(sql , values)         
             return response.status(200).json({
                 sucesso: true, 
@@ -107,7 +115,7 @@ module.exports = {
     async apagarDespesas(request, response) {
         try { 
             const { des_id } = request.params;
-            const sql = `DELETE FROM despesa WHERE des_id = ?`
+            const sql = `DELETE FROM despesas WHERE des_id = ?`
             const values = [ des_id ] ;
             const deletar = await db.query(sql, values);
 
