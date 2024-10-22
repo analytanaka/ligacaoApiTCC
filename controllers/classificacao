@@ -2,11 +2,15 @@ const db = require('../database/connection');
 
 module.exports = {
     async listarClassificacao(request, response) {
-        try {            
+        try {    
+            const sql =`SELECT cla_id, usu_id, cla_descricao FROM classificacao;`;       
+            const classificacao = await db.query(sql);
+
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Lista de classificações.', 
-                dados: null
+                mensagem: 'Lista de classificação.', 
+                dados: classificacao [0]
+              
             });
         } catch (error) {
             return response.status(500).json({
@@ -17,12 +21,20 @@ module.exports = {
         }
     }, 
     async cadastrarClassificacao(request, response) {
-        try {            
+        try {       
+            const {usu_id, cla_descricao} = request.body;
+            const sql = `insert into classificacao ( usu_id, cla_descricao )
+                         values (?, ?)`
+            const values =  [usu_id, cla_descricao];
+            const execSql = await db.query(sql , values);
+            const cla_id = execSql[0].insertId;
+          
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Cadastro de classificação.', 
-                dados: null
+                mensagem: 'Cadastro de classificação efetuado com sucesso.', 
+                dados: cla_id
             });
+
         } catch (error) {
             return response.status(500).json({
                 sucesso: false,
@@ -32,11 +44,19 @@ module.exports = {
         }
     }, 
     async editarClassificacao(request, response) {
-        try {            
+        try {        
+            const {usu_id, cla_descricao} = request.body;
+            const {cla_id}  = request.params;
+            const sql = `UPDATE classificacao SET usu_id = ?,
+             cla_descricao = ? WHERE cla_id = ?;`;
+                
+            const values = [usu_id, cla_descricao, cla_id]
+            const atualizaDados = await db.query(sql , values)
+
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Editar classificação.', 
-                dados: null
+                mensagem:`Classificação ${cla_id} atualizada com sucesso!`, 
+                dados: atualizaDados[0].affectedRows
             });
         } catch (error) {
             return response.status(500).json({
@@ -47,11 +67,16 @@ module.exports = {
         }
     }, 
     async apagarClassificacao(request, response) {
-        try {            
+        try {         
+            const { cla_id } = request.params;
+            const sql = `DELETE FROM classificacao WHERE cla_id = ?`
+            const values = [ cla_id ] ;
+            const apagar = await db.query(sql, values);
+
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Apagar classificação.', 
-                dados: null
+                mensagem: `Classificação ${cla_id} excuída!`, 
+                dados: apagar[0].affectedRows
             });
         } catch (error) {
             return response.status(500).json({

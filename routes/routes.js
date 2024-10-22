@@ -36,7 +36,9 @@ router.delete('/despesas/:des_id', DespesasController.apagarDespesas);
 router.get('/classificacao', ClassificacaoController.listarClassificacao);
 router.post('/classificacao', ClassificacaoController.cadastrarClassificacao); 
 router.patch('/classificacao', ClassificacaoController.editarClassificacao); 
+router.patch('/classificacao/:cla_id', ClassificacaoController.editarClassificacao); 
 router.delete('/classificacao', ClassificacaoController.apagarClassificacao); 
+router.delete('/classificacao/:cla_id', ClassificacaoController.apagarClassificacao); 
 
 router.get('/tipos_despesa', TiposDespesaController .listarTiposDespesa);
 router.get('/tp_despesa/:tp_id', TiposDespesaController .listarTiposDespesa);

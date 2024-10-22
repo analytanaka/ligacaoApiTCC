@@ -82,7 +82,7 @@ module.exports = {
         try {   
             const {des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros} = request.body;
             const {des_id}  = request.params;
-<<<<<<< HEAD
+
             const sql = `UPDATE despesas SET des_descricao = ?,
                 des_data_vencimento = ?, 
                 des_data_pagamento = ?, 
@@ -90,11 +90,6 @@ module.exports = {
                 des_desconto = ?,
                 des_multa = ?, 
                 des_juros = ? WHERE des_id = ?`
-=======
-            const sql = `UPDATE despesas 
-                     SET des_descricao = ?, des_data_vencimento = ?, des_data_pagamento = ?, des_valor = ?, des_desconto = ?, des_multa = ?, des_juros = ? 
-                     WHERE des_id = ?`;
->>>>>>> 891f7f8c664be6a6be2c6502f23bd6cb4d2c42c2
                 
                      const values = [des_descricao, des_data_vencimento, des_data_pagamento, des_valor, des_desconto, des_multa, des_juros, des_id];
 

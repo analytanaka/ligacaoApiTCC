@@ -99,7 +99,7 @@ module.exports = {
     async apagarTiposDespesa(request, response) {
         try {         
             const { tp_id } = request.params;
-            const sql = `DELETE FROM tipos_depesa WHERE tp_id = ?`
+            const sql = `DELETE FROM tipos_despesa WHERE tp_id = ?`
             const values = [ tp_id ] ;
             const apagar = await db.query(sql, values);
 
