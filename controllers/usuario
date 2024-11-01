@@ -146,5 +146,44 @@ module.exports = {
             });
 
         }
+    },  
+
+
+async login(request, response) {
+    try {    
+
+        const {usu_email, usu_senha, usu_fone} = request.body
+        const sql =`SELECT usu_id, usu_login, usu_nome, usu_fotoperfil FROM usuario
+         WHERE usu_email = ? AND usu_senha = ? AND usu_fone = ? AND usu_ativo = 1;`;   
+
+        const values = [usu_email, usu_senha, usu_fone];
+
+        const usuario = await db.query(sql, values);
+
+        const nItens = usuario[0.].length;
+
+        if(nItens < 1 ){
+            return response.status(403).json({
+                sucesso: false, 
+                mensagem: 'Login e/ou senha inválido.', 
+                dados: null,
+              
+            });
+        }
+      
+
+        return response.status(200).json({
+            sucesso: true, 
+            mensagem: 'Login efetuado com sucesso.', 
+            dados: usuario [0]
+          
+        });
+    } catch (error) {
+        return response.status(500).json({
+            sucesso: false,
+            mensagem: 'Erro na requisição.',
+            dados: error.message
+        });
     }
-};  
+}, 
+};

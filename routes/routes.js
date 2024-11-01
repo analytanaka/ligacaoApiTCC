@@ -15,6 +15,8 @@ router.patch('/usuario/:usu_id', UsuarioController.editarUsuario);
 router.delete('/usuario', UsuarioController.apagarUsuario); 
 router.delete('/usuario/:usu_id', UsuarioController.apagarUsuario); 
 router.delete('/usuario/del/:usu_id', UsuarioController.ocultarUsuario); 
+router.post('/usuario/login', UsuarioController.login); 
+
 
 router.get('/receitas', ReceitasController.listarReceitas);
 router.get('/receitas/:rec_id', ReceitasController.listarReceitas);
