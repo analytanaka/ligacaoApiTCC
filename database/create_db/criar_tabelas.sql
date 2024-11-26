@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS usuario (
     usu_nome VARCHAR(100) NOT NULL,
     usu_email VARCHAR(60) NOT NULL,
     usu_fone VARCHAR(30) NOT NULL,
+    usu_ativo TINYINT NOT NULL DEFAULT 1,
     usu_fotoperfil VARCHAR (5000)
 );
  
