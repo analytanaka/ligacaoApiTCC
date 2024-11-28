@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+
 const UsuarioController = require('../controllers/usuario');
 const ReceitasController = require('../controllers/receitas');
 const DespesasController = require('../controllers/despesas');
@@ -15,8 +16,7 @@ router.patch('/usuario/:usu_id', UsuarioController.editarUsuario);
 router.delete('/usuario', UsuarioController.apagarUsuario); 
 router.delete('/usuario/:usu_id', UsuarioController.apagarUsuario); 
 router.delete('/usuario/del/:usu_id', UsuarioController.ocultarUsuario); 
-router.post('/usuario/login', UsuarioController.login); 
-
+router.post('/usuario/login', UsuarioController.login);
 
 router.get('/receitas', ReceitasController.listarReceitas);
 router.get('/receitas/:rec_id', ReceitasController.listarReceitas);

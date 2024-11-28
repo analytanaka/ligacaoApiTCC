@@ -1,4 +1,6 @@
-const db = require('../database/connection'); 
+const db = require('../database/connection');
+const jwt = require("jsonwebtoken")
+const bcrypt = require('bcryptjs')
 
 module.exports = {
     async listarUsuario(request, response) {
@@ -148,7 +150,6 @@ module.exports = {
         }
     },  
 
-
 async login(request, response) {
     try {    
 
@@ -160,7 +161,7 @@ async login(request, response) {
 
         const usuario = await db.query(sql, values);
 
-        const nItens = usuario[0.].length;
+        const nItens = usuario[0].length;
 
         if(nItens < 1 ){
             return response.status(403).json({
@@ -171,7 +172,6 @@ async login(request, response) {
             });
         }
       
-
         return response.status(200).json({
             sucesso: true, 
             mensagem: 'Login efetuado com sucesso.', 
